@@ -1,0 +1,21 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "mIdentityName": {
+      "value": "sp-eus2-npe-arg-msdiscovery-mi1"
+    },
+    "resourceGroupName": {
+      "value": "sp-eus2-npe-arg-msdiscovery-infra"
+    },
+    "location": {
+      "value": "eastus2"
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "project": "discovery"
+      }
+    }
+  }
+}

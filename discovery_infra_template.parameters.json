@@ -1,0 +1,42 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "deploymentName": {
+      "value": "disc-eus21"
+    },
+    "location": {
+      "value": "eastus2"
+    },
+    "vnetAddressPrefix": {
+      "value": "10.0.0.0/22"
+    },
+    "supercomputerNodepoolSubnetPrefix": {
+      "value": "10.0.0.0/24"
+    },
+    "aksSubnetPrefix": {
+      "value": "10.0.1.0/24"
+    },
+    "storageBlobSubnetPrefix": {
+      "value": "10.0.2.0/24"
+    },
+    "storageSubnetPrefix": {
+      "value": "10.0.3.0/26"
+    },
+    "discoveryStoreKind": {
+      "value": "AzureNetApp"
+    },
+    "nodePoolVmSize": {
+      "value": "Standard_D4s_v6"
+    },
+    "maxNPNodeCount": {
+      "value": 2
+    },
+    "tags": {
+      "value": {
+        "environment": "dev",
+        "project": "discovery"
+      }
+    }
+  }
+}

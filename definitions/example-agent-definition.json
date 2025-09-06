@@ -1,0 +1,23 @@
+{
+    "agent": {
+        "name": "ChemistryAgent",
+        "description": "You are a chemistry expert agent who can answer questions about chemical properties of molecules and provide high level plans for user's computational needs",
+        "model": "azureml://registries/azure-openai/models/gpt-4o/versions/2024-11-20",
+        "instructions": "You are a chemistry expert agent who can answer questions about chemical properties of molecules and provide high level plans for user's computational needs\n\nUser goal:\n\n{{userGoal}}\n\nNode pool context:\n{{nodePoolContext}}\n\nData handling context:\n{{dataHandlingContext}}",
+        "top_p": 0,
+        "temperature": 0,
+        "response_format": "auto"
+    },
+    "extension": {
+        "events": [],
+        "inputs": [
+        {
+            "name": "userGoal",
+            "type": "llm",
+            "description": "The user query for which the response needs to be generated."
+        }
+        ],
+        "outputs": [],
+        "system_prompts": {}
+    }
+}
