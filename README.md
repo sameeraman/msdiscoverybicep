@@ -33,9 +33,8 @@ High level deployment steps are below.
 | `deployment.sh` | Details the end‑to‑end deployment commands (registration, RBAC, infra, agent, workflow). |
 | `discovery_midentity_template.bicep` | Subscription‑scope template creating a User Assigned Managed Identity (UAMI) and role assignments. This also create the resource group|
 | `discovery_infra_template.bicep`  | Core infrastructure (VNet, Storage Account, Discovery resources: storage, supercomputer, nodepool, workspace, RBAC). |
-| `discovery_agent_template.bicep` | Deploys a Discovery Agent. Supports file‑based definition + inline override. |
-| `discovery_workflow_template.bicep` | Deploys a Discovery Workflow. Supports file‑based definition + inline override. |
-| `definitions/` | Example agent & workflow JSON definition files used as defaults. |
+| `discovery_agent_workflow_bookshelf_template.bicep` | Deploys Microsoft Discovery Agent, Workflow and Bookshelf resources. Supports file‑based definition + inline override. |
+| `definitions/` | Example Microsoft Discovery agent & workflow JSON definition files used as defaults. |
 
 ## Prerequisites
 1. Azure CLI v2.60+ (`az version`).
@@ -60,6 +59,8 @@ High level deployment steps are below.
 5. Sufficient permissions (Owner or User Access Administrator + Role Assignment rights) to create identities and assign roles at subscription scope.
 
 ## Manual Step‑By‑Step
+
+These steps are also available in the [deployment.sh](/deployment.sh) file. 
 
 > Preview Notice: `Microsoft.Discovery/*` resource types are in preview (`2025-07-01-preview`). The Azure Resource Provider (RP) may change; schema validation in Bicep shows warnings (`BCP081`) because type definitions are not yet published. These warnings are non‑blocking.
 
