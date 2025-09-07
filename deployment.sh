@@ -35,11 +35,8 @@ az role assignment create --assignee $adminuser --role "01288891-85ee-45a7-b367-
 # Create resource group and the managed identity along with its permissions
 az deployment sub create --name $deploymentName-uami-deploy --location $location --template-file discovery_midentity_template.bicep --parameters @discovery_midentity_template.parameters.json mIdentityName=$mIdentityName resourceGroupName=$rgName location=$location
 
-# Deploy the discovery resources
+# Deploy the discovery infrastructure resources
 az deployment group create --name $deploymentName-infra-deploy --resource-group $rgName --template-file discovery_infra_template.bicep --parameters @discovery_infra_template.parameters.json deploymentName=$deploymentName mIdentityName=$mIdentityName location=$location --debug 
 
-# Deploy the discovery agents
-az deployment group create --name $deploymentName-agent-deploy --resource-group $rgName --template-file discovery_agent_template.bicep --parameters @discovery_agent_template.parameters.json location=$location --debug
-
-# Deploy the discovery workflow
-az deployment group create --name $deploymentName-workflow-deploy --resource-group $rgName --template-file discovery_workflow_template.bicep --parameters @discovery_workflow_template.parameters.json location=$location --debug
+# Deploy the Agent, workflow and bookshelf 
+az deployment group create --name $deploymentName-ag-wf-bs-deploy --resource-group $rgName --template-file discovery_agent_workflow_bookshelf_template.bicep --parameters @discovery_agent_workflow_bookshelf_template.parameters.json location=$location --debug

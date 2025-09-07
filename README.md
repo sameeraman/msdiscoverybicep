@@ -24,13 +24,14 @@ This repository provides Bicep templates and a deployment script to automate the
 6. Deploy Microsoft Discovery Workflow
 
 High level deployment steps are below. 
+
 ![Deployment Steps](/images/bicep_deployment_flow.png)
 
 ## Repository Structure
 | File / Folder | Purpose |
 |---------------|---------|
 | `deployment.sh` | Details the end‑to‑end deployment commands (registration, RBAC, infra, agent, workflow). |
-| `discovery-midentity.bicep` | Subscription‑scope template creating a User Assigned Managed Identity (UAMI) and role assignments. This also create the resource group|
+| `discovery_midentity_template.bicep` | Subscription‑scope template creating a User Assigned Managed Identity (UAMI) and role assignments. This also create the resource group|
 | `discovery_infra_template.bicep`  | Core infrastructure (VNet, Storage Account, Discovery resources: storage, supercomputer, nodepool, workspace, RBAC). |
 | `discovery_agent_template.bicep` | Deploys a Discovery Agent. Supports file‑based definition + inline override. |
 | `discovery_workflow_template.bicep` | Deploys a Discovery Workflow. Supports file‑based definition + inline override. |
@@ -93,6 +94,15 @@ az deployment sub create \
   --template-file discovery_midentity_template.bicep \
   --parameters @discovery_midentity_template.parameters.json mIdentityName=$mIdentityName resourceGroupName=$rgName location=$location
 ```
+
+This step provisions the resource group and the managed identity in it. 
+
+You will see the deployment status as below. 
+
+![Deployment Steps](/images/SCR-20250907-jpzq.png)
+
+![Deployment Steps](/images/SCR-20250907-iult.png)
+
 ### 4. Deploy Core Infrastructure
 ```bash
 az deployment group create \
@@ -106,24 +116,37 @@ You can update parameter values in the parameters file or override them inline (
 
 You can add `--debug` option to the deployment command if the deployment error's out to get additional information. 
 
-### 5. Deploy Microsoft Discovery Agent
+This step provisions the Virtual Network, Storage Account and other Microsoft Discovery Resources. 
+
+You will see the deployment status as below. 
+
+![Deployment Steps](/images/SCR-20250907-jqcl.png)
+
+Once the resources are deployed succesfully, you will see the resources as below. 
+
+![Deployment Steps](/images/SCR-20250906-mdxa.png)
+
+### 5. Deploy Microsoft Discovery Agent, Workflow and the Bookshelf
 ```bash
 az deployment group create \
-  --name $deploymentName-agent-deploy \
+  --name $deploymentName-ag-wf-bs-deploy \
   --resource-group $rgName \
-  --template-file discovery_agent_template.bicep \
-  --parameters @discovery_agent_template.parameters.json location=$location 
-
+  --template-file discovery_agent_workflow_bookshelf_template.bicep  \
+  --parameters @discovery_agent_workflow_bookshelf_template.parameters.json location=$location
 ```
+This step refer's to the [agent](/definitions/example-agent-definition.json) and [workflow](/definitions/example-workflow-definition.json) definition files located in the [definitions folder](/definitions/).
 
-### 6. Deploy Microsoft Discovery Workflow
-```bash
-az deployment group create \
-  --name $deploymentName-workflow-deploy \
-  --resource-group $rgName \
-  --template-file discovery_workflow_template.bicep \
-  --parameters @discovery_workflow_template.parameters.json location=$location
-```
+You will the deployment status as below. 
+
+![step3 deployment status](/images/SCR-20250907-jtik.png)
+
+You will see the Agent, Workflow and the Bookshelf resources successfully provisioned as below. 
+
+![step3 resources](/images/SCR-20250907-jtpg.png)
+
+You will see the management resource groups as below. 
+
+![management resource groups](/images/SCR-20250907-jtvv.png)
 
 
 
